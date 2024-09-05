@@ -1,6 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDSVftHb4a2XhgFFzR38R9HP-d4-3fE3iw',
+      appId: '1:704950840436:android:bdef62ce53ff76df9fb521',
+      messagingSenderId: '704950840436',
+      projectId: 'todo-app-task-1',
+    ),
+  );
   runApp(const MyApp());
 }
 
