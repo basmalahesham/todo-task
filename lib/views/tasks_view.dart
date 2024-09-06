@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_task/core/network/firestore_utils.dart';
 import 'package:todo_task/views/widgets/task_item_widget.dart';
@@ -20,7 +20,7 @@ class _TasksViewState extends State<TasksView> {
       children: [
         Container(
           alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(top: 40, left: 20),
+          padding: const EdgeInsets.only(top: 40, left: 20),
           width: mediaQuery.width,
           height: mediaQuery.height * 0.15,
           color: Colors.deepPurple,
@@ -29,34 +29,30 @@ class _TasksViewState extends State<TasksView> {
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         ),
-/*
         CalendarTimeline(
           initialDate: selectedDate,
-          firstDate: DateTime.now().subtract(Duration(days: 30)),
-          lastDate: DateTime.now().add(Duration(days: 365)),
+          firstDate: DateTime.now().subtract(const Duration(days: 30)),
+          lastDate: DateTime.now().add(const Duration(days: 365)),
           onDateSelected: (date) {
             selectedDate = date;
             setState(() {});
           },
           leftMargin: 20,
-          monthColor: provider.isDark() ? Colors.white : Colors.black,
-          dayColor: provider.isDark() ? Colors.white : Colors.black,
-          activeDayColor:
-          provider.isDark() ? Colors.white : AppTheme.primaryColor,
-          activeBackgroundDayColor:
-          provider.isDark() ? Color(0xFF141922) : Colors.white,
-          dotColor: provider.isDark() ? Colors.white : AppTheme.primaryColor,
+          monthColor: Colors.black,
+          dayColor: Colors.black,
+          activeDayColor: Colors.deepPurple,
+          activeBackgroundDayColor: Colors.white,
+          dotColor: Colors.deepPurple,
         ),
-*/
         Expanded(
           child: StreamBuilder(
             stream: FirestoreUtils.getRealTimeDataFromFirestore(selectedDate),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 print(snapshot.error);
-                return Text('Error Eccoured');
+                return const Text('Error Eccoured');
               } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(
                     color: Colors.deepPurple,
                   ),
@@ -64,7 +60,7 @@ class _TasksViewState extends State<TasksView> {
               }
               var tasksList = snapshot.data?.docs.map((e) => e.data()).toList();
               return ListView.builder(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 10,
                 ),
                 itemBuilder: (context, index) => TaskItemWidget(
